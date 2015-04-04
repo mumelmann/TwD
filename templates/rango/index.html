@@ -5,9 +5,29 @@
 	<title>Rango</title>
 </head>
 <body>
- <h1>Rango says...</h1>
- hello World! <strong>{{ boldmessage }}</strong><br>
- <a href="/rango/about/">About</a><br>
- <img src="{% static "images/rango.jpg" %}" height="300" width="250" alt="Picture of Rango">
+  <h1>Rango says... hello World!</h1>
+
+  {% if cat_list %}
+    <ul>
+      {% for cat in cat_list %}
+        <li><a href="{% url 'category' cat.slug %}">{{ cat.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <strong>There are no categories present.</strong>
+  {% endif %}   
+  
+  {% if popular_pages %}
+
+    <h3>Popular pages:</h3>
+    <ul>
+      {% for page in popular_pages %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <hr>
+
+  <a href="{% url 'about' %}">About</a>
 </body>
 </html>
