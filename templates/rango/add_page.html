@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rango</title>
+</head>
+<body>
+{% if cat %}
+  <h3>Add page to the category {{ cat }}.</h3>
+    <form id="page_form" method="POST" action="{% url 'add_page' cat.slug %}">
+    {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+
+      {% for field in form.visible_fields  %}
+        {{ field.errors }}
+        {{ field.help_text }}
+        {{ field }}
+      {% endfor %}
+
+      <input type="submit", name="submit" value="Add Page">
+    </form>
+    
+{% else %}
+  <p>Category does not exist.</p>
+{% endif %}
+
+</body>
+</html>
